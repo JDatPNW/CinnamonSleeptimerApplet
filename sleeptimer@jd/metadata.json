@@ -1,0 +1,7 @@
+{
+    "uuid": "sleeptimer@jd",
+    "name": "Sleeptimer",
+    "description": "Shows the time until the scheduled shutdown.",
+    "icon": "Sleeptimer",
+    "max-instances": "-1"
+}
