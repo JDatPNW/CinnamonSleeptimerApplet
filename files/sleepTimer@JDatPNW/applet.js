@@ -124,9 +124,9 @@ sleepTimerApplet.prototype = {
 
           let formattedTime = diffHrs.toString() + ":" + diffMins.toString();
 
-          if((diffHrs == 0 && diffMins <= 5) && !this.alerted){
-            Util.spawnCommandLine('zenity --error --text="Only less than 5 minutes left until shutdown\!" --title="shutdownTimer\!"');
-            Util.spawnCommandLine("notify-send 'shutdownTimer' 'Only less than 5 minutes left until shutdown'");
+          if((diffHrs == 0 && diffMins <= 15) && !this.alerted){
+            Util.spawnCommandLine('zenity --error --text="Only less than 15 minutes left until shutdown\!" --title="shutdownTimer\!"');
+            Util.spawnCommandLine("notify-send 'shutdownTimer' 'Only less than 15 minutes left until shutdown'");
             this.alerted = true;
           }
 
