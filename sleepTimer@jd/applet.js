@@ -24,6 +24,7 @@ sleepTimerApplet.prototype = {
         this.set_applet_tooltip(_("sleepTimer"));
         this.set_applet_label("sleepTimer");
         this.connected = false;
+        this.alerted = false;
 		this.update_interval = 5000;
 
         try {
@@ -48,7 +49,7 @@ sleepTimerApplet.prototype = {
             this.menu.addMenuItem(item);
 
 
-            item = new PopupMenu.PopupIconMenuItem("1h", "appointment-soon", St.IconType.FULLCOLOR);
+            item = new PopupMenu.PopupIconMenuItem("2h", "appointment-soon", St.IconType.FULLCOLOR);
 
             item.connect('activate', Lang.bind(this, function() {
                            Util.spawnCommandLine("shutdown +120");
@@ -122,6 +123,13 @@ sleepTimerApplet.prototype = {
           var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
 
           let formattedTime = diffHrs.toString() + ":" + diffMins.toString();
+
+          if((diffHrs == 0 && diffMins <= 5) && !this.alerted){
+            Util.spawnCommandLine('zenity --error --text="Only less than 5 minutes left until shutdown\!" --title="shutdownTimer\!"');
+            Util.spawnCommandLine("notify-send 'shutdownTimer' 'Only less than 5 minutes left until shutdown'");
+            this.alerted = true;
+          }
+
           return formattedTime;
         }
       }
